@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Hero from '../components/hero'
 import ServiceSection from '../components/section-service'
+import MortgageCalculatorSection from '../components/mortgage-calculator'
 
 
 export default function RootIndex({ data }) {
@@ -17,6 +18,7 @@ export default function RootIndex({ data }) {
         image={gatsbyImageData}
       />
       <ServiceSection />
+      <MortgageCalculatorSection />
     </Layout>
   )
 }
