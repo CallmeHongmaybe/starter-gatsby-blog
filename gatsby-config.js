@@ -12,6 +12,7 @@ module.exports = {
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sharp",
     "gatsby-plugin-image",
+    "gatsby-plugin-postcss",
     {
       resolve: "gatsby-source-contentful",
       options: {
@@ -19,6 +20,23 @@ module.exports = {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },
+    // {
+    //   resolve: "gatsby-plugin-react-svg",
+    //   options: {
+    //     rule: {
+    //       include: /\.inline\.svg$/,
+    //       options: {
+    //         tag: "symbol",
+    //         name: "Socials",
+    //         props: {
+    //           className: "social-class",
+    //           title: "Socials"
+    //         },
+    //         filters: [value => console.log(value)]
+    //       }
+    //     }
+    //   }
+    // }
   ],
 };
 
