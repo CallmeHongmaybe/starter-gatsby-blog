@@ -8,16 +8,18 @@ import MortgageCalculatorSection from '../components/mortgage-calculator'
 
 export default function RootIndex({ data }) {
 
-  let { title, description: { description }, image: { gatsbyImageData } } = data.contentfulHeroComponent
+  let { title, description: { description }, image: { url } } = data.contentfulHeroComponent
+
+  let { nodes } = data.introBlocks
 
   return (
     <Layout>
       <Hero
         title={title}
         content={description}
-        image={gatsbyImageData}
+        image={url}
       />
-      <ServiceSection />
+      <ServiceSection products={JSON.stringify(nodes)} />
       <MortgageCalculatorSection />
     </Layout>
   )
@@ -31,9 +33,20 @@ export const pageQuery = graphql`
         description
       }, 
       image {
-        gatsbyImageData(width: 1000, formats: [AUTO, WEBP, AVIF]) 
+        url
       }
       buttonText
+    }
+
+    introBlocks: allContentfulIconIntroBlock {
+      nodes {
+        id,
+        title
+        description,
+        image {
+          gatsbyImageData(width: 55, height: 55, formats: [AUTO, WEBP, AVIF]) 
+        }
+      }
     }
   }
 `

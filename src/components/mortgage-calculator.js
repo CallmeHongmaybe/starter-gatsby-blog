@@ -1,5 +1,5 @@
 import { debounce } from "lodash";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 let USDollar = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -43,6 +43,7 @@ const MortgageCalculator = () => {
 
     let calcResult = (principalLoanAmount, annualInterestRate, repaymentTime) => {
         if (repaymentTime === 0) return principalLoanAmount
+        if (principalLoanAmount < 0) return 0
         const i = (annualInterestRate / 12) / 100; // Convert annual interest rate to monthly rate
         const n = repaymentTime * 12; // Convert loan term to months 
 
@@ -53,23 +54,23 @@ const MortgageCalculator = () => {
         return monthlyPayment
     }
 
+    const debouncedSetInput = debounce((name, value) => {
+        setInput(prevInput => ({
+            ...prevInput,
+            [name]: value
+        }));
+    }, 300);
+
+
     let SliderInput = ({ min, max, name, formattedName, unit }) => {
-
-        const debouncedSetInput = debounce((name, value) => {
-            setInput(prevInput => ({
-                ...prevInput,
-                [name]: value
-            }));
-        }, 300);
-
         return (
             <div
                 id={`${name}Input`}
-                className="flex flex-col w-full phone:w-1/3 phone:h-auto items-start py-2 phone:border-r phone:py-2"
+                className="flex flex-col w-full phone:h-auto items-start py-2 phone:py-2"
             >
                 <div className="inline-flex w-[inherit]" id={`${name}Label`}>
-                    <span className="w-1/2 whitespace-nowrap">{formattedName}</span>
-                    <span className="w-1/2 text-right">{
+                    <span className="w-1/2 whitespace-nowrap extrabold-text-manually">{formattedName}</span>
+                    <span className="w-1/2 text-right extrabold-text-manually">{
                         unit === "$" ? USDollar.format(input[name]) : `${input[name]} ${unit}`}</span>
                 </div>
                 <input
@@ -78,12 +79,26 @@ const MortgageCalculator = () => {
                     className="w-[inherit]"
                     max={max}
                     name={name}
-                    onChange={(ev) => debouncedSetInput(name, parseFloat(ev.target.value))}
+                    onInput={(ev) => {
+                        debouncedSetInput(name, parseFloat(ev.target.value))
+                    }}
                     value={input[name]}
                 />
             </div>
         )
     }
+
+    let ResultLine = ({ formattedName, result }) => (
+        <span className="inline-flex w-[inherit]">
+            <p className="w-1/2 bold-text-manually" id="totalPaymentdiv">
+                {formattedName}
+            </p>
+            <div className="text-xl w-1/2 select-all text-center text-custom-orange extrabold-text-manually">
+                {result}
+            </div>
+        </span>
+    )
+
 
     useEffect(() => {
         let principalLoanAmount = input.purchaseAmount - input.downPayment
@@ -91,9 +106,18 @@ const MortgageCalculator = () => {
     }, [input])
 
     return (
-        <div className="flex flex-row justify-center w-full h-full items-center gap-12">
+        <div className="flex flex-row tablet:flex-col phone:flex-col justify-center w-full h-full items-center gap-12">
             <div
-                className="bg-gray-700 text-white flex flex-col items-start justify-center w-1/2 font-sans pl-32 py-18 pr-8 h-[80%] phone:space-y-1 phone:rounded-lg phone:shadow-lg phone:w-auto phone:h-auto phone:m-4 phone:p-8"
+                className="bg-custom-navy text-white flex flex-col items-start justify-center 
+                laptop:w-1/2 laptop:h-[80%]
+                tablet:h-2/3 tablet:max-w-6xl tablet:container
+                phone:h-2/3 phone:max-w-6xl phone:container
+                font-sans 
+                laptop:pl-32 laptop:py-18 laptop:pr-8
+                tablet:p-8 
+                phone:p-8
+                tablet:items-center phone:items-center
+                "
             >
                 <h2 className="text-[3.125rem] phone:text-3xl font-black font-sans w-full pb-3 leading-10 tracking-wide whitespace-nowrap">
                     Mortgage Calculator
@@ -101,34 +125,35 @@ const MortgageCalculator = () => {
                 <p className="my-6">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel est a nulla accumsan dapibus non vehicula ex. Nam tempus efficitur diam, id convallis sem.
                 </p>
-                <div id="entryBoxes" className="grid grid-cols-2 gap-x-6 gap-y-4 w-full">
+                <div id="entryBoxes" className="
+                laptop:grid laptop:grid-cols-2 gap-x-6 gap-y-4
+                tablet:grid tablet:grid-cols-2
+                phone:grid phone:grid-rows-4
+                w-full"
+                >
                     {sliderFields.map(props => <SliderInput {...props} />)}
                 </div>
                 <div
                     id="outputBox"
                     className="flex flex-col w-full justify-start items-center rounded-lg mt-2 phone:p-2 phone:m-2"
                 >
-                    <span className="inline-flex w-[inherit]">
-                        <p className="w-1/2" id="totalPaymentdiv">
-                            Loan Amount
-                        </p>
-                        <div className="text-xl w-1/2 select-all text-center">
-                            {USDollar.format(input.purchaseAmount - input.downPayment)}
-                        </div>
-                    </span>
-                    <span className="inline-flex w-[inherit]">
-                        <p className="w-1/2" id="monthlyPaymentdiv">Monthly Payment</p>
-                        <div className="text-xl w-1/2 select-all text-center">
-                            {monthlyPayment ? USDollar.format(monthlyPayment)
-                                : "Uncalculable"}
-                        </div>
-                    </span>
+                    <ResultLine formattedName={"Loan Amount"} result={USDollar.format(input.purchaseAmount - input.downPayment)} />
+                    <ResultLine formattedName={"Monthly Payment"} result={monthlyPayment ? USDollar.format(monthlyPayment) : "Uncalculable"} />
                 </div>
             </div>
-            <div className="w-1/2 h-1/2 flex flex-col justify-evenly items-start">
-                <h2 className="text-zinc-800 text-6xl font-black leading-10 tracking-wide">Try our awesome Calculator</h2>
+            <div className="
+                laptop:w-1/2 laptop:h-1/2
+                tablet:max-w-6xl tablet:container tablet:h-full tablet:mx-auto
+                phone:max-w-6xl phone:container phone:h-full phone:mx-auto
+                flex flex-col justify-evenly 
+                laptop:text-left tablet:text-center phone:text-center
+                laptop:items-start tablet:items-center phone:items-center
+                ">
+                <h2 className="text-zinc-800 
+                laptop:text-6xl tablet:text-3xl phone:text-2xl
+                font-black leading-10 tracking-wide">Try our awesome Calculator</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel est a nulla accumsan dapibus non vehicula ex. Nam tempus efficitur diam, id convallis sem. Sed suscipit eleifend eros, eget mollis nunc interdum eu.</p>
-                <button className="w-36 h-16 bg-orange-400 text-white shadow">Register</button>
+                <button className="w-36 h-16 bg-custom-orange text-white shadow">Register</button>
             </div>
         </div>
     )
@@ -136,7 +161,7 @@ const MortgageCalculator = () => {
 
 const MortgageCalculatorSection = () => {
     return (
-        <section className='w-full h-screen flex flex-col mx-auto justify-evenly items-center'>
+        <section id="mortgage" className='w-full h-screen flex flex-col mx-auto justify-evenly items-center'>
             <MortgageCalculator />
         </section>
     )
