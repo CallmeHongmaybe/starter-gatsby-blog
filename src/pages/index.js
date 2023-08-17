@@ -5,8 +5,8 @@ import Hero from '../components/hero'
 import ServiceSection from '../components/section-service'
 import MortgageCalculatorSection from '../components/mortgage-calculator'
 
-
 export default function RootIndex({ data }) {
+
 
   let { title, description: { description }, image: { url } } = data.contentfulHeroComponent
 
@@ -19,8 +19,8 @@ export default function RootIndex({ data }) {
         content={description}
         image={url}
       />
-      <ServiceSection products={JSON.stringify(nodes)} />
-      <MortgageCalculatorSection />
+      <ServiceSection products={JSON.stringify(nodes)} path="/#services" />
+      <MortgageCalculatorSection path="/#calculator" />
     </Layout>
   )
 }

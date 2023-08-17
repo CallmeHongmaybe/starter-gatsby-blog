@@ -1,5 +1,5 @@
 import { debounce } from "lodash";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 let USDollar = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -161,7 +161,7 @@ const MortgageCalculator = () => {
 
 const MortgageCalculatorSection = () => {
     return (
-        <section id="mortgage" className='w-full h-screen flex flex-col mx-auto justify-evenly items-center'>
+        <section id="calculator" className='w-full h-screen flex flex-col mx-auto justify-evenly items-center'>
             <MortgageCalculator />
         </section>
     )

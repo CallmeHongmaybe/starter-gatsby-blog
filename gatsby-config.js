@@ -3,6 +3,9 @@ require("dotenv").config({
 });
 
 module.exports = {
+  flags: {
+    DEV_SSR: true
+  },
   siteMetadata: {
     title: "Gatsby Contentful Starter",
     description: "Official Contentful Gatsby Starter",
@@ -20,23 +23,6 @@ module.exports = {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },
-    // {
-    //   resolve: "gatsby-plugin-react-svg",
-    //   options: {
-    //     rule: {
-    //       include: /\.inline\.svg$/,
-    //       options: {
-    //         tag: "symbol",
-    //         name: "Socials",
-    //         props: {
-    //           className: "social-class",
-    //           title: "Socials"
-    //         },
-    //         filters: [value => console.log(value)]
-    //       }
-    //     }
-    //   }
-    // }
   ],
 };
 

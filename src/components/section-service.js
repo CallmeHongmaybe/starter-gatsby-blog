@@ -52,7 +52,7 @@ function Carousel({ products }) {
 // make this section a slider
 export default function ServiceSection({ products }) {
     return (
-        <section id="service" className={`max-w-6xl h-screen tablet:h-fit phone:h-fit ${styles.flexColCenter} mx-auto`}>
+        <section id="services" className={`max-w-6xl h-screen tablet:h-fit phone:h-fit ${styles.flexColCenter} mx-auto`}>
             <h2 className="text-zinc-800 font-black leading-10 tracking-wide 
             laptop:text-6xl tablet:text-4xl phone:text-2xl w-3/4
             text-center flex-1">

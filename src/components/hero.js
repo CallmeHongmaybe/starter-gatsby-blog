@@ -28,7 +28,7 @@ const Hero = ({ image, title, content }) => (
         </div>
       </div>
       <div className='w-1/2 relative'>
-        {image && <img src={image} className='w-full h-full object-cover tablet:object-contain phone:hidden' />}
+        {image && <img src={image} alt="Pipe Logo" className='w-full h-full object-cover tablet:object-contain phone:hidden' />}
       </div>
     </div>
   </section>
