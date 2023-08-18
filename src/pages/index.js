@@ -19,8 +19,8 @@ export default function RootIndex({ data }) {
         content={description}
         image={url}
       />
-      <ServiceSection products={JSON.stringify(nodes)} path="/#services" />
-      <MortgageCalculatorSection path="/#calculator" />
+      <ServiceSection products={JSON.stringify(nodes)} />
+      <MortgageCalculatorSection />
     </Layout>
   )
 }

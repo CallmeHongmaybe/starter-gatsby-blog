@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Link } from '@gatsbyjs/reach-router';
-import { StaticImage } from 'gatsby-plugin-image'
 
 const executeScroll = (e) => {
   let allNavLinks = document.querySelectorAll(".navlink");
@@ -39,8 +38,10 @@ const Navigation = () => {
   return (
     <nav role="navigation" className="flex justify-between items-center mx-auto p-8" aria-label="Main">
       <Link to="/" className="flex items-center flex-row flex-shrink-0 space-x-4">
-        <StaticImage width={50} height={50} src="../../static/images/date palm.png" className='rounded-full' />
-        <span className="inline-flex items-center tablet:hidden phone:hidden flex-row">Kinka<br />Finance</span>
+        <span className='w-[50px] h-[50px] rounded-full bg-custom-orange table text-center'>
+            <p className='table-cell align-middle text-2xl bold-italic-manually'>K</p>
+        </span>
+        <span className="inline-flex items-center tablet:hidden phone:hidden flex-row bold-text-manually">Kinka<br />Finance</span>
       </Link>
       <ul className="flex list-none m-0 space-x-8">
         {

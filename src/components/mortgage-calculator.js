@@ -91,21 +91,20 @@ const MortgageCalculator = () => {
                         value={input[name]}
                     />
                     <div
-                        className={`w-full h-full ${
-                            sliderPct === 100 || sliderPct === 0 
-                            ? 'rounded-full' 
+                        className={`w-full h-full ${sliderPct === 100 || sliderPct === 0
+                            ? 'rounded-full'
                             : 'rounded-s-full'} bg-custom-orange-fade absolute top-0 bottom-0 left-0 float-left mt-2`}
                         style={{ width: `${sliderPct}%` }}
                     />
                     <div
-                        className={`w-full h-full ${
-                            remainingPct === 100 || remainingPct === 0 
-                            ? 'rounded-full' 
+                        className={`w-full h-full ${remainingPct === 100 || remainingPct === 0
+                            ? 'rounded-full'
                             : 'rounded-e-full'} bg-white absolute top-0 bottom-0 right-0 float-right mt-2`}
-                        style={{ width: `${remainingPct}%`}}
+                        style={{ width: `${remainingPct}%` }}
                     />
                 </div>
             </div>
+
         )
     }
 
@@ -139,7 +138,7 @@ const MortgageCalculator = () => {
                 tablet:items-center phone:items-center
                 "
             >
-                <h2 className="text-[3.125rem] phone:text-3xl font-black font-sans w-full pb-3 leading-10 tracking-wide whitespace-nowrap">
+                <h2 className="text-5xl phone:text-3xl w-full pb-3 leading-10 tracking-wide whitespace-nowrap">
                     Mortgage Calculator
                 </h2>
                 <p className="my-6">
@@ -155,7 +154,7 @@ const MortgageCalculator = () => {
                 </div>
                 <div
                     id="outputBox"
-                    className="flex flex-col w-full justify-start items-center rounded-lg mt-2 phone:p-2 phone:m-2"
+                    className="flex flex-col w-full justify-start items-center rounded-lg mt-6"
                 >
                     <ResultLine formattedName={"Loan Amount"} result={USDollar.format(input.purchaseAmount - input.downPayment)} />
                     <ResultLine formattedName={"Monthly Payment"} result={monthlyPayment ? USDollar.format(monthlyPayment) : "Uncalculable"} />

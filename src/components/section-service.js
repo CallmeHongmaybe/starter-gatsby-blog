@@ -7,13 +7,10 @@ let styles = {
     flexColCenter: 'flex flex-col items-center justify-center',
 }
 
-// https://tailwind-elements.com/docs/standard/components/carousel/ 
+function Services({ products }) {
 
-function Carousel({ products }) {
+    const productList = JSON.parse(products)
 
-    const projectList = JSON.parse(products)
-
-    // the slider also slides automatically once every 10 seconds 
     return (
         <>
             <div className="flex laptop:flex-[5] flex-row items-center list-none relative tablet:h-fit phone:h-fit tablet:mx-10 sm:mx-5">
@@ -23,14 +20,20 @@ function Carousel({ products }) {
                             phone:grid-rows-3 phone:gap-12
                             '>
                     {
-                        projectList.map(({ id, image, title, description }) => (
+                        productList.map(({ id, image, title, description }) => (
                             <div
                                 key={id}
-                                className="relative flex flex-col text-center justify-evenly"
+                                className="
+                                relative flex flex-col text-center justify-evenly h-full
+                                transition-all ease-in-out
+                                delay-150
+                                duration-200
+                                hover:scale-110
+                                "
                             >
-                                <div className={`z-10 px-6 py-4 ${styles.flexColEvenly} tablet:w-full phone:w-full laptop:h-3/4 tablet:h-fit phone:h-fit border-black shadow-md`}>
+                                <div className={`z-10 px-6 py-4 ${styles.flexColEvenly} tablet:w-full phone:w-full laptop:h-3/4 tablet:h-fit phone:h-fit border-black shadow-lg`}>
                                     <div class="h-1/2 flex items-center">
-                                        <div className={`bg-custom-orange w-24 h-24 rounded-full shadow ${styles.itemsCenter}`}>
+                                        <div className={`bg-custom-orange w-24 h-24 rounded-full  ${styles.itemsCenter}`}>
                                             {/* <FontAwesomeIcon icon={faCheckCircle} className='text-4xl text-white' /> */}
                                             <GatsbyImage image={image.gatsbyImageData} />
                                         </div>
@@ -58,7 +61,7 @@ export default function ServiceSection({ products }) {
             text-center flex-1">
                 High Quality Output, Awesome Service
             </h2>
-            <Carousel products={products} />
+            <Services products={products} />
         </section>
     )
 }

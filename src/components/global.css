@@ -25,6 +25,15 @@ section {
 }
 
 @font-face {
+  font-family: 'Nunito Sans Bold Italic';
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+  font-named-instance: 'Regular';
+  src: url('/fonts/NunitoSans-BoldItalic.woff2') format('woff2');
+}
+
+@font-face {
   font-family: 'Nunito Sans Extrabold';
   font-weight: 900;
   font-display: swap;
@@ -72,6 +81,10 @@ h5,
 h6, .bold-text-manually {
   font-family: var(--font-nunito-bold);
   line-height: var(--dense);
+}
+
+.bold-italic-manually { 
+  font-family: var(--font-nunito-bold-italic);
 }
 
 a {

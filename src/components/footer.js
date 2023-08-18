@@ -1,5 +1,4 @@
 import React from 'react'
-import { StaticImage } from 'gatsby-plugin-image'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faTwitter, faFacebook } from "@fortawesome/free-brands-svg-icons";
 
@@ -27,8 +26,10 @@ const Footer = () => (
         <div className="flex flex-row 
         laptop:justify-start tablet:justify-center phone:justify-center
         items-center tablet:container phone:container phone:overflow-visible laptop:w-1/2">
-          <StaticImage src="../../static/images/date palm.png" width={50} height={50} className="relative rounded-full" />
-          <p className={`font-extrabold text-lg phone:text-md ml-4`}>Kinka<br />Finance</p>
+          <span className='w-[50px] h-[50px] rounded-full bg-custom-navy table text-center'>
+            <p className='table-cell align-middle text-2xl text-white bold-italic-manually'>K</p>
+          </span>
+          <p className={`font-extrabold text-lg phone:text-md ml-4 bold-text-manually`}>Kinka<br />Finance</p>
         </div>
         <div className=' mt-4 laptop:w-1/2 text-[#585C65]'>2021 Award winning Finance Advisor and Lorem ipsum dolor sit amet</div>
         <div className='mt-4 laptop:w-1/3 tablet:w-1/3 inline-flex laptop:justify-between tablet:justify-between phone:justify-evenly items-center'>
