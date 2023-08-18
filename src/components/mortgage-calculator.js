@@ -63,6 +63,11 @@ const MortgageCalculator = () => {
 
 
     let SliderInput = ({ min, max, name, formattedName, unit }) => {
+
+        let sliderPct = (input[name] / max) * 100
+        let remainingPct = 100 - sliderPct
+        // console.log('sliderPct', name, sliderPct)
+
         return (
             <div
                 id={`${name}Input`}
@@ -73,17 +78,33 @@ const MortgageCalculator = () => {
                     <span className="w-1/2 text-right extrabold-text-manually">{
                         unit === "$" ? USDollar.format(input[name]) : `${input[name]} ${unit}`}</span>
                 </div>
-                <input
-                    type="range"
-                    min={min}
-                    className="w-[inherit]"
-                    max={max}
-                    name={name}
-                    onInput={(ev) => {
-                        debouncedSetInput(name, parseFloat(ev.target.value))
-                    }}
-                    value={input[name]}
-                />
+                <div className="h-[15px] w-full rounded-full relative">
+                    <input
+                        type="range"
+                        min={min}
+                        className="w-[inherit]"
+                        max={max}
+                        name={name}
+                        onInput={(ev) => {
+                            debouncedSetInput(name, parseFloat(ev.target.value))
+                        }}
+                        value={input[name]}
+                    />
+                    <div
+                        className={`w-full h-full ${
+                            sliderPct === 100 || sliderPct === 0 
+                            ? 'rounded-full' 
+                            : 'rounded-s-full'} bg-custom-orange-fade absolute top-0 bottom-0 left-0 float-left mt-2`}
+                        style={{ width: `${sliderPct}%` }}
+                    />
+                    <div
+                        className={`w-full h-full ${
+                            remainingPct === 100 || remainingPct === 0 
+                            ? 'rounded-full' 
+                            : 'rounded-e-full'} bg-white absolute top-0 bottom-0 right-0 float-right mt-2`}
+                        style={{ width: `${remainingPct}%`}}
+                    />
+                </div>
             </div>
         )
     }
@@ -99,7 +120,6 @@ const MortgageCalculator = () => {
         </span>
     )
 
-
     useEffect(() => {
         let principalLoanAmount = input.purchaseAmount - input.downPayment
         setMonthlyPayment(calcResult(principalLoanAmount, input.annualInterestRate, input.repaymentTime))
@@ -110,8 +130,8 @@ const MortgageCalculator = () => {
             <div
                 className="bg-custom-navy text-white flex flex-col items-start justify-center 
                 laptop:w-1/2 laptop:h-[80%]
-                tablet:h-2/3 tablet:max-w-6xl tablet:container
-                phone:h-2/3 phone:max-w-6xl phone:container
+                tablet:h-fit tablet:max-w-6xl tablet:container
+                phone:h-fit phone:max-w-6xl phone:container
                 font-sans 
                 laptop:pl-32 laptop:py-18 laptop:pr-8
                 tablet:p-8 
@@ -153,7 +173,7 @@ const MortgageCalculator = () => {
                 laptop:text-6xl tablet:text-3xl phone:text-2xl
                 font-black leading-10 tracking-wide">Try our awesome Calculator</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel est a nulla accumsan dapibus non vehicula ex. Nam tempus efficitur diam, id convallis sem. Sed suscipit eleifend eros, eget mollis nunc interdum eu.</p>
-                <button className="w-36 h-16 bg-custom-orange text-white shadow">Register</button>
+                <button className="w-36 h-16 bg-custom-orange text-white shadow extrabold-text-manually">Register</button>
             </div>
         </div>
     )

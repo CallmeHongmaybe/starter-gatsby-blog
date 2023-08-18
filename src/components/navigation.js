@@ -50,7 +50,7 @@ const Navigation = () => {
                 id={`${section}_nav`}
                 className="border-b-2 border-transparent text-current no-underline hover:border-primary hover:text-primary navlink"
               >
-                {section.toUpperCase()}
+                {section.charAt(0).toUpperCase() + section.slice(1)}
               </Link>
             </li>
           ))

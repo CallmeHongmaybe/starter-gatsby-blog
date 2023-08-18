@@ -24,7 +24,7 @@ const Hero = ({ image, title, content }) => (
            phone:text-2xl
           ">{title}</h1>
           <p>{content}</p>
-          <button className="w-36 h-16 bg-custom-orange shadow tablet:mt-6">Register</button>
+          <button className="w-36 h-16 bg-custom-orange shadow tablet:mt-6 extrabold-text-manually">Register</button>
         </div>
       </div>
       <div className='w-1/2 relative'>
